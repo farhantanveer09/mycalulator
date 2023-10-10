@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calculator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: arial;
+    }
+
+    html {
+      font-size: 62.5%;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      height: 100vh;
+      background: linear-gradient(45deg, #0a0a0a, #444)
+    }
+
+    #main {
+      box-shadow: 0 0 5px 1px #fff;
+      border-radius: 2rem;
+      padding: 2rem;
+      background: transparent;
+    }
+
+    .row {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      padding: 0 5px;
+    }
+
+    button {
+      width: 7rem;
+      height: 7rem;
+      border-radius: 50%;
+      font-size: 2.5rem;
+      color: #fff;
+      font-weight: bolder;
+      background: transparent;
+      border: none;
+      box-shadow: -.5rem -.5rem .5rem rgba(255, 255, 255, .1),
+        .5rem .5rem .5rem .5rem rgba(0, 0, 0, .1);
+      transition: all .3s;
+    }
+
+    button:hover {
+      background: rgba(0, 0, 0, .18);
+    }
+
+    #display {
+      background: transparent;
+      border: none;
+      padding: 0 5px;
+      font-size: 3.5rem;
+      text-align: right;
+      width: 36rem;
+      color: #fff;
+      height: 80px;
+      margin-bottom: 2rem;
+    }
+
+    #display::placeholder {
+      color: #fff;
+    }
+
+    #display:focus {
+      outline: none;
+    }
+
+    @media(max-width: 768px) {
+      html {
+        font-size: 60%;
+      }
+    }
+
+    @media(max-width: 568px) {
+      html {
+        font-size: 55%;
+      }
+    }
+
+    @media(max-width: 468px) {
+      html {
+        font-size: 50%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="main">
+    <input type="text" id="display" placeholder="0" readonly>
+    <div class="row">
+      <button>AC</button>
+      <button>DEL</button>
+      <button>%</button>
+      <button>/</button>
+    </div>
+    <div class="row">
+      <button>9</button>
+      <button>8</button>
+      <button>7</button>
+      <button>+</button>
+    </div>
+    <div class="row">
+      <button>6</button>
+      <button>5</button>
+      <button>4</button>
+      <button>*</button>
+    </div>
+    <div class="row">
+      <button>3</button>
+      <button>2</button>
+      <button>2</button>
+      <button>-</button>
+    </div>
+    <div class="row">
+      <button>00</button>
+      <button>0</button>
+      <button>.</button>
+      <button class="eul" style="background:#FF7E00">=</button>
+    </div>
+  </div>
+</body>
+<script>
+  const btn = document.querySelectorAll('button')
+  const display = document.querySelector('#display')
+  box = '';
+  btn.forEach((value) => {
+    value.addEventListener('click', (e) => {
+      display.style.color = '#fff'
+      try {
+        if (e.target.innerHTML == '=') {
+          if (box == '') {
+            display.value = 'Enter a Input';
+            display.style.color = '#888888'
+          } else {
+            display.value = eval(box);
+            box = '';
+          }
+        } else if (e.target.innerHTML == 'AC') {
+          box = '';
+          display.value = '0';
+        } else if (e.target.innerHTML == 'DEL') {
+          box = box.substr(0, box.length - 1)
+          display.value = box;
+        } else {
+          box += e.target.innerHTML;
+          display.value = box;
+        }
+      } catch {
+        display.value = 'wrong Input';
+        display.style.color = '#888888'
+      }
+    })
+  })
+</script>
+
+</html>
